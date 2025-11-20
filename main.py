@@ -1,7 +1,6 @@
 import streamlit as st
 from PIL import Image
 import google.generativeai as genai  # <--- NUOVO IMPORT
-import os
 
 # --- Configurazione della Pagina ---
 st.set_page_config(
