@@ -37,11 +37,12 @@ with st.expander("📍 Vuoi trovare l'isola ecologica? **Imposta la tua posizion
 
 # --- Gestione API Key (Sicurezza) ---
 api_key = None
-if "GOOGLE_API_KEY" in st.secrets:
-    api_key = st.secrets["GOOGLE_API_KEY"]
-else:
-    # Fallback per inserimento manuale se non presente nei secrets
-    api_key = st.text_input("Inserisci la tua Google API Key:", type="password")
+try:
+    if "GOOGLE_API_KEY" in st.secrets:
+        api_key = st.secrets["GOOGLE_API_KEY"]
+except Exception as e:
+    st.warning("Chiave API non trovata nelle configurazioni segrete.")
+    api_key = st.text_input("Inserisci manualmente la tua Google API Key:", type="password")
 
 # --- Input Immagine ---
 if api_key:
