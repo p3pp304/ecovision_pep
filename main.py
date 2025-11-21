@@ -106,11 +106,9 @@ if api_key:
                     if dati_rifiuto["destinazione"] == "Non identificato":
                         st.warning("⚠️ Non sono riuscito a capire di che oggetto si tratta. Prova con una foto più chiara.")
                     else:
-                        # Creiamo una visualizzazione pulita a colonne o schede
+                        st.success("Analisi completata!")
                         st.subheader(f"Oggetto: {dati_rifiuto['oggetto']}")
-                        
                         col1, col2 = st.columns(2)
-                        
                         with col1:
                             st.info(f"**Materiale:**\n{dati_rifiuto['materiale']}")
                             st.write(f"**Azione richiesta:**\n{dati_rifiuto['azione']}")
@@ -131,17 +129,12 @@ if api_key:
                             else:
                                 # Grigio
                                 st.error(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
+                        
                         # Note in basso
                         st.markdown("---")
                         st.caption(f"💡 **Nota dell'esperto:** {dati_rifiuto['note']}")
             except Exception as e:
-                    st.error(f"Errore durante l'analisi: {e}")
-                    
-                    st.success("Analisi completata!")
-                    st.markdown(response.text)
-
-            except Exception as e:
-                st.error(f"Errore durante l'analisi: {e}")
+                st.error(f"Si è verificato un errore: {e}")
 
 # --- Footer ---
 st.markdown("---")
