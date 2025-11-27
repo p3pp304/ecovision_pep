@@ -111,7 +111,7 @@ if api_key:
                     - "destinazione": Dove va buttato (es. Plastica, Carta, Vetro, Umido, Secco, Isola Ecologica).
                     - "azione": Cosa fare prima di buttarlo (es. "Sciacqua bene", "Schiaccia", "Separa il tappo", "Nessuna azione").
                     - "note": Una spiegazione brevissima o un consiglio specifico (max 1 frase).
-                    L'utente si trova in {citta}, {regione}.
+                    L'utente si trova in {citta}.
 
                     1. Identifica l'oggetto principale.
                     2. Controlla se l'oggetto sembra sporco (es. residui di cibo, salsa, liquido).
