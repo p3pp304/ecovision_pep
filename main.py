@@ -102,6 +102,9 @@ if api_key:
                         else:
                             # Grigio
                             st.error(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
+                    
+                    if dati_rifiuto['destinazione']=="Isola Ecologica":
+                        st.link_button("🔗 Trova l'isola ecologica più vicina", url_maps, use_container_width=True)
                         
                     # Note in basso
                     st.markdown("---")
