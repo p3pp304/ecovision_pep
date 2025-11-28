@@ -8,12 +8,12 @@ def carica_dati_geografici():
         Restituisce una lista di stringhe formattate: "Comune, Regione, Italy".
     '''
     # URL ufficiale o raw github con i comuni italiani aggiornati
-    URL_comuni = "https://github.com/NotMatte/JSON-Comuni-Italiani/blob/main/data.json?raw=true"
+    file_comuni = "comuniitaliani.json"
     
     # Leggiamo il JSON direttamente in un DataFrame pandas
     # 'orient=index': Fondamentale perché il JSON è strutturato come un dizionario
     # (es. {"AGLIÈ": {dati}, ...}) invece di essere una lista di oggetti.
-    df = pd.read_json(URL_comuni, orient='index') 
+    df = pd.read_json(file_comuni, orient='index') 
 
     # Creazione della stringa di ricerca univoca (Stile Google Maps)
     # Combiniamo le colonne per ottenere: "NomeCittà, NomeRegione, Italy"
