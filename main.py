@@ -33,7 +33,9 @@ with st.expander("📍 Vuoi trovare l'isola ecologica? **Imposta la tua posizion
     # Conferma visiva dell'inserimento
     if citta:
         st.success(f"Posizione salvata: {citta}")
-        # In futuro qui genereremo il link a Google Maps
+        nome_comune = citta.split(",")[0] # Prendiamo solo il nome del comune
+        url_maps = f"https://www.google.com/maps/search/isola+ecologica+{nome_comune}" # Link a Google Maps per l'isola ecologica
+        st.link_button("🔗 Trova l'isola ecologica più vicina", url_maps, use_container_width=True) #Bottone per aprire Google Maps in un'altra scheda
 
 # GESTIONE SICUREZZA E AUTENTICAZIONE API KEY
 api_key = None
