@@ -100,12 +100,15 @@ if api_key:
                         elif "umido" in dest or "organico" in dest:
                             # Marrone
                             st.success(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
+                        elif "vetro" in dest:
+                            # Verde
+                            st.success(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
                         else:
                             # Grigio
                             st.error(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
                     
-                    if dati_rifiuto['destinazione']=="Isola Ecologica":
-                        st.link_button("🔗 Trova l'isola ecologica più vicina", url_maps, use_container_width=True)
+                        if dati_rifiuto['destinazione']=="Isola Ecologica":
+                            st.link_button("🔗 Trova l'isola ecologica più vicina", url_maps, use_container_width=True)
                         
                     # Note in basso
                     st.markdown("---")
