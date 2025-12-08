@@ -145,10 +145,13 @@ if api_key:
                     
                     if "rifiuto speciale" in dest or "isola ecologica" in dest:
                         st.write("Ecco l'isola ecologica più vicina a te:")
-                        st.markdown(
-                            f'<iframe src="{url_maps}" width="100%" height="350" style="border-radius:20px; border:1px solid #ddd;" allowfullscreen="" loading="lazy"></iframe>',
-                            unsafe_allow_html=True
-                        )
+                        if 'url_maps' in locals() and url_maps:
+                            st.markdown(
+                                f'<iframe src="{url_maps}" width="100%" height="350" style="border-radius:20px; border:1px solid #ddd;" allowfullscreen="" loading="lazy"></iframe>',
+                                unsafe_allow_html=True
+                            )
+                        else:
+                            st.warning("⚠️ Per vedere l'isola ecologica più vicina, per favore imposta la tua posizione nel box in alto '📍 Vuoi trovare l'isola ecologica?'.")
 
                     # 4. NOTA DELL'ESPERTO (Neutro)
                     st.markdown("---")
