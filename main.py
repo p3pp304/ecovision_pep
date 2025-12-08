@@ -101,36 +101,47 @@ if api_key:
                     st.success("Analisi completata!")
                     st.subheader(f"Oggetto: {dati_rifiuto['oggetto']}")
                         
-                    # 1. MATERIALE
-                    st.info(f"📦 **Materiale:**\n### {dati_rifiuto['materiale']}")
+                    # Funzione helper per creare box colorati
+                    def show_custom_box(label, text, bg_color, text_color="black", icon=""):
+                        st.markdown(f"""
+                        <div style="background-color: {bg_color}; padding: 15px; border-radius: 10px; margin-bottom: 10px; color: {text_color};">
+                            <h5 style="margin:0; color: {text_color};">{icon} {label}</h5>
+                            <h3 style="margin:0; color: {text_color};">{text}</h3>
+                        </div>
+                        """, unsafe_allow_html=True)
 
-                    # 2. AZIONE RICHIESTA
-                    st.warning(f"⚠️ **Azione richiesta:**\n### {dati_rifiuto['azione']}")
+                    # 1. MATERIALE (Neutro - Light Blue/Grey)
+                    show_custom_box("Materiale", dati_rifiuto['materiale'], "#f0f2f6", "black", "📦")
+
+                    # 2. AZIONE RICHIESTA (Neutro o evidenziato leggermente)
+                    show_custom_box("Azione richiesta", dati_rifiuto['azione'], "#f0f2f6", "black", "⚠️")
 
                     # 3. DESTINAZIONE
-                    # Logica colori base
                     dest = dati_rifiuto['destinazione'].lower()
+                    dest_text = dati_rifiuto['destinazione'].upper()
+                    
                     if "plastica" in dest:
                         # Giallo
-                        st.warning(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
+                        show_custom_box("Dove buttarlo", dest_text, "#FFEB3B", "black", "🗑️")
                     elif "carta" in dest:
                         # Blu
-                        st.info(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
-                    elif "organico" in dest:
+                        show_custom_box("Dove buttarlo", dest_text, "#2196F3", "white", "🗑️")
+                    elif "organico" in dest or "umido" in dest:
                         # Marrone
-                        st.success(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}") # Usa un colore diverso se possibile, ma success è ok (verde/marrone)
+                        show_custom_box("Dove buttarlo", dest_text, "#795548", "white", "🗑️")
                     elif "vetro" in dest:
                         # Verde
-                        st.success(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
-                    elif "indifferenziato" in dest:
+                        show_custom_box("Dove buttarlo", dest_text, "#4CAF50", "white", "🗑️")
+                    elif "indifferenziato" in dest or "secco" in dest:
                         # Grigio
-                        st.error(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
+                        show_custom_box("Dove buttarlo", dest_text, "#9E9E9E", "white", "🗑️")
                     elif "rifiuto speciale" in dest:
-                        # Rosso o speciale
-                        st.error(f"⚠️ **Rifiuto Speciale:**\n## {dati_rifiuto['destinazione'].upper()}")
+                        # Rosso
+                        show_custom_box("Rifiuto Speciale", dest_text, "#F44336", "white", "⚠️")
                         st.write("Questo rifiuto non va nei bidoni domestici. Portalo all'isola ecologica.")
                     else:
-                        st.write(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
+                        # Default
+                        show_custom_box("Dove buttarlo", dest_text, "#f0f2f6", "black", "🗑️")
                     
                     if "rifiuto speciale" in dest or "isola ecologica" in dest:
                         st.write("Ecco l'isola ecologica più vicina a te:")
@@ -139,9 +150,9 @@ if api_key:
                             unsafe_allow_html=True
                         )
 
-                    # 4. NOTA DELL'ESPERTO
+                    # 4. NOTA DELL'ESPERTO (Neutro)
                     st.markdown("---")
-                    st.success(f"💡 **Nota dell'esperto:**\n{dati_rifiuto['note']}")
+                    show_custom_box("Nota dell'esperto", dati_rifiuto['note'], "#e8f5e9", "#1b5e20", "💡")
 
             except Exception as e:
                 st.error(f"Si è verificato un errore: {e}")
