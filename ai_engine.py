@@ -13,7 +13,7 @@ def analizza_immagine(image, api_key, citta):
                 generation_config = {"response_mime_type": "application/json"}
                         
                 # Carichiamo il modello 
-                model = genai.GenerativeModel('models/gemini-2.0-flash', generation_config=generation_config)
+                model = genai.GenerativeModel('models/gemini-2.5-flash', generation_config=generation_config)
 
                 # Definiamo il Prompt
                 prompt = f"""

@@ -101,44 +101,38 @@ if api_key:
                     st.success("Analisi completata!")
                     st.subheader(f"Oggetto: {dati_rifiuto['oggetto']}")
                         
-                    col1, col2 = st.columns(2)
-                    
-                    # Colonna sinistra: Dettagli tecnici
-                    with col1:
-                        st.info(f"**Materiale:**\n{dati_rifiuto['materiale']}")
-                        st.write(f"**Azione richiesta:**\n{dati_rifiuto['azione']}")
-                    # Colonna destra: Indicazioni di smaltimento
-                    with col2:
-                        # Logica colori base
-                        # Imposta il colore del box (Giallo, Blu, Verde, Rosso) in base al tipo di rifiuto per richiamare i bidoni reali.
-                        dest = dati_rifiuto['destinazione'].lower()
-                        if "plastica" in dest:
-                            # Giallo
-                            st.warning(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
-                        elif "carta" in dest:
-                            # Blu
-                            st.info(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
-                        elif "umido" in dest or "organico" in dest:
-                            # Marrone
-                            st.success(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
-                        elif "vetro" in dest:
-                            # Verde
-                            st.success(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
-                        else:
-                            # Grigio
-                            st.error(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
+                    # 1. MATERIALE
+                    st.info(f"📦 **Materiale:**\n### {dati_rifiuto['materiale']}")
+
+                    # 2. AZIONE RICHIESTA
+                    st.warning(f"⚠️ **Azione richiesta:**\n### {dati_rifiuto['azione']}")
+
+                    # 3. DESTINAZIONE
+                    # Logica colori base
+                    dest = dati_rifiuto['destinazione'].lower()
+                    if "plastica" in dest:
+                        # Giallo
+                        st.warning(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
+                    elif "carta" in dest:
+                        # Blu
+                        st.info(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
+                    elif "umido" in dest or "organico" in dest:
+                        # Marrone
+                        st.success(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
+                    else:
+                        # Grigio (o rosso per errore/indifferenziato)
+                        st.error(f"🗑️ **Dove buttarlo:**\n## {dati_rifiuto['destinazione'].upper()}")
                     
                     if dati_rifiuto['destinazione']=="Isola Ecologica":
                         st.write("Ecco l'isola ecologica più vicina a te:")
-                        # Iframe HTML
                         st.markdown(
                             f'<iframe src="{url_maps}" width="100%" height="350" style="border-radius:20px; border:1px solid #ddd;" allowfullscreen="" loading="lazy"></iframe>',
                             unsafe_allow_html=True
                         )
-                        
-                    # Note in basso
+
+                    # 4. NOTA DELL'ESPERTO
                     st.markdown("---")
-                    st.caption(f"💡 **Nota dell'esperto:** {dati_rifiuto['note']}")
+                    st.success(f"💡 **Nota dell'esperto:**\n{dati_rifiuto['note']}")
 
             except Exception as e:
                 st.error(f"Si è verificato un errore: {e}")
