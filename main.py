@@ -102,11 +102,15 @@ if api_key:
                     st.subheader(f"Oggetto: {dati_rifiuto['oggetto']}")
                         
                     # Funzione helper per creare box colorati
-                    def show_custom_box(label, text, bg_color, text_color="black", icon=""):
+                    def show_custom_box(label, text, bg_color, text_color="black", icon="", is_small=False):
+                        padding = "10px" if is_small else "15px"
+                        title_tag = "h6" if is_small else "h5"
+                        text_tag = "p" if is_small else "h3" # Use 'p' or 'h4' for smaller text
+                        
                         st.markdown(f"""
-                        <div style="background-color: {bg_color}; padding: 15px; border-radius: 10px; margin-bottom: 10px; color: {text_color};">
-                            <h5 style="margin:0; color: {text_color};">{icon} {label}</h5>
-                            <h3 style="margin:0; color: {text_color};">{text}</h3>
+                        <div style="background-color: {bg_color}; padding: {padding}; border-radius: 10px; margin-bottom: 10px; color: {text_color};">
+                            <{title_tag} style="margin:0; color: {text_color}; font-weight: bold;">{icon} {label}</{title_tag}>
+                            <{text_tag} style="margin:0; color: {text_color}; font-size: {'1.1em' if is_small else 'inherit'};">{text}</{text_tag}>
                         </div>
                         """, unsafe_allow_html=True)
 
@@ -155,7 +159,7 @@ if api_key:
 
                     # 4. NOTA DELL'ESPERTO (Neutro)
                     st.markdown("---")
-                    show_custom_box("Nota dell'esperto", dati_rifiuto['note'], "#e8f5e9", "#1b5e20", "💡")
+                    show_custom_box("Nota dell'esperto", dati_rifiuto['note'], "#e8f5e9", "#1b5e20", "💡", is_small=True)
 
             except Exception as e:
                 st.error(f"Si è verificato un errore: {e}")
