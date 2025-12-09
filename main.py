@@ -33,12 +33,12 @@ with st.expander("📍 Vuoi trovare l'isola ecologica? **Imposta la tua posizion
     # Conferma visiva dell'inserimento
     if citta:
         st.success(f"Posizione salvata: {citta}")
-        st.write("Ecco l'isola ecologica più vicina a te:")
         nome_comune = citta.split(",")[0].strip() # Prendiamo solo il nome del comune ; .strip() rimuove eventuali spazi vuoti accidentali)
         url_maps_citta = f"https://www.google.com/maps?q={nome_comune}&output=embed" # Link a Google Maps per città selezionata
         url_maps_isola = f"https://www.google.com/maps?q=isola+ecologica+{nome_comune}&output=embed" # Link a Google Maps per l'isola ecologica
 
-if citta:        
+if citta:    
+    st.write("Ecco la città in cui ti trovi:")    
     # Iframe HTML
     st.markdown(
         f'<iframe src="{url_maps_citta}" width="100%" height="350" style="border-radius:20px; border:1px solid #ddd;" allowfullscreen="" loading="lazy"></iframe>',
@@ -143,15 +143,15 @@ if api_key:
                         show_custom_box("Dove buttarlo", dest_text, "#9E9E9E", "white", "🗑️")
                     elif "rifiuto speciale" in dest:
                         # Rosso
-                        show_custom_box("Rifiuto Speciale", dest_text, "#F44336", "white", "⚠️")
-                        st.write("Questo rifiuto non va nei bidoni domestici. Portalo all'isola ecologica.")
+                        warning_text= "Questo rifiuto non va nei bidoni domestici. Portalo all'isola ecologica."
+                        show_custom_box("Rifiuto Speciale", warning_text, "#F44336", "white", "⚠️")
                     else:
                         # Default
                         show_custom_box("Dove buttarlo", dest_text, "#f0f2f6", "black", "🗑️")
                     
                     if "rifiuto speciale" in dest or "isola ecologica" in dest:
-                        st.write("Ecco l'isola ecologica più vicina a te:")
                         if 'url_maps_isola' in locals() and url_maps_isola:
+                            st.write("Ecco l'isola ecologica più vicina a te:")
                             st.markdown(
                                 f'<iframe src="{url_maps_isola}" width="100%" height="350" style="border-radius:20px; border:1px solid #ddd;" allowfullscreen="" loading="lazy"></iframe>',
                                 unsafe_allow_html=True
