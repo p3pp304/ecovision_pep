@@ -35,28 +35,30 @@ with st.expander("📍 Vuoi trovare l'isola ecologica? **Imposta la tua posizion
         st.success(f"Posizione salvata: {citta}")
         st.write("Ecco l'isola ecologica più vicina a te:")
         nome_comune = citta.split(",")[0].strip() # Prendiamo solo il nome del comune ; .strip() rimuove eventuali spazi vuoti accidentali)
-        url_maps = f"https://www.google.com/maps?q=isola+ecologica+{nome_comune}&output=embed" # Link a Google Maps per l'isola ecologica
-        
-        # Iframe HTML
-        st.markdown(
-            f'<iframe src="{url_maps}" width="100%" height="350" style="border-radius:20px; border:1px solid #ddd;" allowfullscreen="" loading="lazy"></iframe>',
-            unsafe_allow_html=True
-        )
-        # SPIEGAZIONE DEL CODICE iframe:
-            # f'<iframe '--> Inizio della f-string: serve per inserire variabili Python (come {url_maps}) dentro il testo
-            # f'src="{url_maps}" --> Qui inseriamo dinamicamente l'URL che la finestra deve visualizzare
-            # [width]: LARGHEZZA. "100%" significa "occupa tutto lo spazio orizzontale disponibile".
-            # [height]: ALTEZZA. Fissa l'altezza della mappa a 350 pixel.
-            # [style]: STILE CSS. Serve per abbellire il riquadro.
-            # "border-radius:20px": Arrotonda gli angoli di 20px per un aspetto più morbido.
-            # "border:1px solid #ddd": Crea un bordo sottile grigio chiaro attorno alla mappa.
-            # [allowfullscreen]: Piacere utente. Abilita il pulsante nella mappa per aprirla a tutto schermo.
-            # [loading]: PERFORMANCE. "lazy" (pigro) significa: "Non caricare la mappa finché l'utente 
-            # non scorre la pagina fino a qui". Rende l'avvio dell'app molto più veloce.
-            # '</iframe>' Chiusura del tag iframe
-            # [unsafe_allow_html]: SICUREZZA. 
-            # Di base Streamlit blocca l'HTML per sicurezza. Con "True" forziamo Streamlit 
-            # a fidarsi di noi e a disegnare l'iframe invece di scriverlo come testo.
+        url_maps_citta = f"https://www.google.com/maps?q={nome_comune}&output=embed" # Link a Google Maps per città selezionata
+        url_maps_isola = f"https://www.google.com/maps?q=isola+ecologica+{nome_comune}&output=embed" # Link a Google Maps per l'isola ecologica
+
+if citta:        
+    # Iframe HTML
+    st.markdown(
+        f'<iframe src="{url_maps_citta}" width="100%" height="350" style="border-radius:20px; border:1px solid #ddd;" allowfullscreen="" loading="lazy"></iframe>',
+        unsafe_allow_html=True
+    )
+    # SPIEGAZIONE DEL CODICE iframe:
+        # f'<iframe '--> Inizio della f-string: serve per inserire variabili Python (come {url_maps}) dentro il testo
+        # f'src="{url_maps}" --> Qui inseriamo dinamicamente l'URL che la finestra deve visualizzare
+        # [width]: LARGHEZZA. "100%" significa "occupa tutto lo spazio orizzontale disponibile".
+        # [height]: ALTEZZA. Fissa l'altezza della mappa a 350 pixel.
+        # [style]: STILE CSS. Serve per abbellire il riquadro.
+        # "border-radius:20px": Arrotonda gli angoli di 20px per un aspetto più morbido.
+        # "border:1px solid #ddd": Crea un bordo sottile grigio chiaro attorno alla mappa.
+        # [allowfullscreen]: Piacere utente. Abilita il pulsante nella mappa per aprirla a tutto schermo.
+        # [loading]: PERFORMANCE. "lazy" (pigro) significa: "Non caricare la mappa finché l'utente 
+        # non scorre la pagina fino a qui". Rende l'avvio dell'app molto più veloce.
+        # '</iframe>' Chiusura del tag iframe
+        # [unsafe_allow_html]: SICUREZZA. 
+        # Di base Streamlit blocca l'HTML per sicurezza. Con "True" forziamo Streamlit 
+        # a fidarsi di noi e a disegnare l'iframe invece di scriverlo come testo.
 
 # GESTIONE SICUREZZA E AUTENTICAZIONE API KEY
 api_key = None
@@ -149,9 +151,9 @@ if api_key:
                     
                     if "rifiuto speciale" in dest or "isola ecologica" in dest:
                         st.write("Ecco l'isola ecologica più vicina a te:")
-                        if 'url_maps' in locals() and url_maps:
+                        if 'url_maps_isola' in locals() and url_maps_isola:
                             st.markdown(
-                                f'<iframe src="{url_maps}" width="100%" height="350" style="border-radius:20px; border:1px solid #ddd;" allowfullscreen="" loading="lazy"></iframe>',
+                                f'<iframe src="{url_maps_isola}" width="100%" height="350" style="border-radius:20px; border:1px solid #ddd;" allowfullscreen="" loading="lazy"></iframe>',
                                 unsafe_allow_html=True
                             )
                         else:
