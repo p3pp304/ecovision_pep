@@ -19,7 +19,8 @@ def mostra_legenda_bidoni():
         {"nome": "Plastica",  "img": "./icons/yellow.png"},
         {"nome": "Vetro",     "img": "./icons/green.png"},
         {"nome": "Umido",     "img": "./icons/brown.png"},
-        {"nome": "Secco",     "img": "./icons/grey.png"}
+        {"nome": "Secco",     "img": "./icons/grey.png"},
+        {"nome": "Rifiuti Speciali", "img": "./icons/red.png"}
         ]
 
         # Crea tante colonne quanti sono i bidoni nella lista
@@ -29,5 +30,5 @@ def mostra_legenda_bidoni():
         for col, bidone in zip(cols, bidoni):  #zip per iterare su due liste contemporaneamente... crea delle coppie (Carta, colonna1), (Plastica, colonna2), ...
                 with col:
                         # width=50 o 60 li tiene piccoli e ordinati, tipo icone
-                        st.image(bidone["img"], width=60) 
+                        st.image(bidone["img"], width=80) 
                         st.caption(bidone["nome"])

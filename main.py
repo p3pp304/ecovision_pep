@@ -195,9 +195,14 @@ if api_key:
                         with col_icon:
                             st.image("./icons/grey.png", width=120)
                     elif "rifiuto speciale" in dest:
-                        # Rosso
-                        warning_text= "Questo rifiuto non va nei bidoni domestici. Portalo all'isola ecologica."
-                        show_custom_box("Rifiuto Speciale", warning_text, "#F44336", "white", "⚠️")
+                        col_box, col_icon = st.columns([4, 1])
+                        with col_box:
+                            # Rosso
+                            warning_text= "Questo rifiuto non va nei bidoni domestici. Portalo all'isola ecologica."
+                            show_custom_box("Rifiuto Speciale", warning_text, "#F44336", "white", "⚠️")
+                        with col_icon:
+                            st.image("./icons/red.png", width=120)
+                        
                     else:
                         # Default
                         show_custom_box("Dove buttarlo", dest_text, "#f0f2f6", "black", "🗑️")
