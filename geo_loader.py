@@ -45,3 +45,14 @@ def get_city_from_latlon_italian(lat, lon):
     except Exception as e:
         return "Errore di connessione"
 
+# 1. Definiamo la funzione di callback (va messa PRIMA di usarla)
+def disattiva_gps():
+    # Se esiste la chiave nel session state, la impostiamo a False
+    if 'usa_gps' in st.session_state and st.session_state.usa_gps==True:
+        st.session_state.usa_gps = False
+
+# 2. Definiamo la funzione di callback (va messa PRIMA di usarla)
+def disattiva_selezioneman():
+    # Se esiste la chiave nel session state, la impostiamo a False
+    if 'select_citta_manuale' in st.session_state and st.session_state.select_citta_manuale!=None:
+        st.session_state.select_citta_manuale = None

@@ -1,7 +1,7 @@
 import streamlit as st              # Framework per la creazione della web app
 from PIL import Image               # Manipolazione immagini   
 import config                       # Configurazioni della pagina
-from geo_loader import carica_dati_geografici, get_city_from_latlon_italian  # Funzioni di caricamento dati geografici
+from geo_loader import carica_dati_geografici, get_city_from_latlon_italian, disattiva_gps, disattiva_selezioneman  # Funzioni di caricamento dati geografici
 import ai_engine                    # Funzioni di analisi e risposta AI
 from streamlit_js_eval import get_geolocation  # Per ottenere la geolocalizzazione dell'utente
 
@@ -22,9 +22,10 @@ comuni_italiani = carica_dati_geografici()
 citta = None # inizializziamo la variabile città
 
 # 1 GEOLOCALIZZAZIONE AUTOMATICA
-# Creiamo un pulsante per chiedere esplicitamente l'azione all'utente
-if st.checkbox("📍 Usa la mia posizione attuale per trovare l'isola ecologica"):
-    
+# Checkbox con KEY; Nota: ora usiamo st.session_state.usa_gps per leggere il valore, ma st.checkbox gestisce l'UI
+usa_gps = st.checkbox("📍 Usa la mia posizione attuale per trovare l'isola ecologica", key="usa_gps", on_change=disattiva_selezioneman)
+
+if usa_gps:
     # Questa funzione chiama il browser per il permesso GPS
     loc = get_geolocation()
 
@@ -44,21 +45,21 @@ else:
 # 2 GEOLOCALIZZAZIONE MANUALE (priorità sulla automatica)
 # Usiamo un expander per mantenere l'interfaccia pulita
 # L'utente può scegliere di inserire la propria posizione per avere indicazioni più precise.
-with st.expander("📍 Vuoi trovare l'isola ecologica? **Imposta la tua posizione manualmente**"):
+with st.expander("📍 Vuoi trovare l'isola ecologica? **Imposta la tua posizione manualmente** "):
     st.write("Inserisci la tua posizione per ricevere indicazioni personalizzate per lo smaltimento dei rifiuti e per l'isola ecologica più vicina a te.")
     # Usiamo una sola selectbox a larghezza intera per selezionare il comune
     citta_man = st.selectbox(
         "Cerca la tua città",
         options=comuni_italiani,
         index=None,
-        placeholder="Scrivi qui il tuo comune (es. Bari)..."
+        placeholder="Scrivi qui il tuo comune (es. Bari)...",
+        key="select_citta_manuale",
+        on_change=disattiva_gps # Disattiviamo il GPS se l'utente seleziona manualmente la città
     )
 
 # Conferma visiva dell'inserimento
 if citta_man:
-    if citta:
-        st.info(f"Attenzione: hai già una città rilevata automaticamente: {citta}. La città manuale avrà la priorità.")
-        citta = citta_man
+    citta = citta_man
     st.success(f"Posizione salvata: {citta_man}")
 
 
@@ -86,6 +87,9 @@ if citta:
         # [unsafe_allow_html]: SICUREZZA. 
         # Di base Streamlit blocca l'HTML per sicurezza. Con "True" forziamo Streamlit 
         # a fidarsi di noi e a disegnare l'iframe invece di scriverlo come testo.
+
+st.markdown("---") # Linea di separazione
+
 
 # GESTIONE SICUREZZA E AUTENTICAZIONE API KEY
 api_key = None
