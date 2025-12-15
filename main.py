@@ -49,7 +49,12 @@ def mostra_mappa(citta, tipo_mappa=0):
     """
     if not citta:
         return
-    url_maps = f"http://googleusercontent.com/maps.google.com/{tipo_mappa}{citta}&output=embed"
+    if tipo_mappa == 0:
+        query = citta
+    else:
+        query = f"isola ecologica {citta}"
+
+    url_maps = f"https://maps.google.com/maps?q={query}&output=embed"
     st.markdown(
         f"<iframe src='{url_maps}' width='100%' height='350' style='border-radius:20px; border:1px solid #ddd;' allowfullscreen='' loading='lazy'></iframe>", 
         unsafe_allow_html=True
@@ -102,7 +107,7 @@ with st.expander("📍 Imposta la città manualmente"):
     )
 
 # Se la città è stata selezionata manualmente, la salviamo
-if citta:
+if citta_man:
     citta = citta_man
     st.success(f"Posizione salvata: {citta}")
 
