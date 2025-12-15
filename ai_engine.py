@@ -5,9 +5,9 @@ from google import genai # API Google Gemini ("cervello")
 from google.genai import types # Tipi di dati per Gemini
 
 # Impostare come constanti il modello di Gemini
-# Usiamo gemini-2.0-flash-lite
-VISION_MODEL_ID = "gemini-2.0-flash-lite"
-CHAT_MODEL_ID = "gemini-2.0-flash-lite"
+# Usiamo gemini-2.5-flash
+VISION_MODEL_ID = "gemini-2.5-flash"
+CHAT_MODEL_ID = "gemini-2.5-flash"
 
 def _get_client(api_key):
     """
@@ -74,8 +74,8 @@ def analizza_immagine(image, api_key, citta):
             
             # Chiamate API usando client.models della nuova libreria
             response = client.models.generate_content(
-                model_id=VISION_MODEL_ID,
-                content=[prompt, image],
+                model=VISION_MODEL_ID,
+                contents=[prompt, image],
                 config=config
             )
 
@@ -95,9 +95,9 @@ def analizza_immagine(image, api_key, citta):
                     "note": "L'IA non ha restituito un formato valido.",
                     "componenti": [{"nome": "Oggetto non identificato", "destinazione": "Non identificato"}]
                 }
-            except Exception as e:
-                # Solleviamo l'eccezione al main.py per mostrarla nell'interfaccia utente
-               raise e
+    except Exception as e:
+        # Solleviamo l'eccezione al main.py per mostrarla nell'interfaccia utente
+        raise e
 
 def get_chatbot_response(user_query, context_data, api_key):
     """
