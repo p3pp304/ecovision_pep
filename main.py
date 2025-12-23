@@ -120,8 +120,6 @@ if citta:
 # Linea di separazione
 st.markdown("---") 
 
-
-# --- GESTIONE SICUREZZA E AUTENTICAZIONE API KEY ---
 # --- GESTIONE SICUREZZA E AUTENTICAZIONE API KEY ---
 api_key = None
 
