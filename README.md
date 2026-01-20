@@ -1,6 +1,19 @@
-♻️ **EcoVision: Guida all'installazione e avvio con Docker**
+♻️ **EcoVision: Smart Waste Sorting Assistant**
 
-Benvenuti nel progetto EcoVision. Questa guida spiega come configurare l'ambiente e avviare l'applicazione utilizzando i container Docker, garantendo la massima coerenza tra i vari ambienti di sviluppo.
+EcoVision è un'applicazione web intelligente progettata per ottimizzare la raccolta differenziata domestica. Utilizzando un approccio ibrido che combina LLM Multimodali e Geolocalizzazione, il sistema identifica i rifiuti e fornisce istruzioni di smaltimento basate sulle normative del comune specifico dell'utente.
+
+🌟 **Funzionalità Principali**
+- **Riconoscimento Multimodale**: Analisi visiva avanzata tramite Google Gemini 2.5 Flash per identificare materiali e stato del rifiuto.
+- **Scomposizione Oggetti Complesso**: Capacità di distinguere e separare componenti di rifiuti multi-materiale (es. bottiglia e tappo) fornendo destinazioni diverse.
+- **Geolocalizzazione Dinamica**: Adattamento delle regole di smaltimento in tempo reale basato sulla posizione GPS dell'utente (Reverse Geocoding).
+- **Chatbot Integrato**: Assistente conversazionale con memoria di contesto per risolvere dubbi specifici post-analisi.
+- **Mappe Isole Ecologiche**: Integrazione con Google Maps per localizzare i centri di raccolta per rifiuti speciali.
+
+-----------------------------------------------------------------------------------------------------
+
+🐳 **Guida all'installazione con Docker**
+
+Questa sezione spiega come configurare l'ambiente e avviare l'applicazione utilizzando i container Docker, garantendo la massima coerenza tra i vari ambienti di sviluppo.
 
 🛠 **Prerequisiti Hardware e Software**
 Prima di iniziare, assicuratevi di aver configurato correttamente la vostra macchina:
