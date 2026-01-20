@@ -43,15 +43,25 @@ docker run -p 8501:8501 -e GOOGLE_API_KEY="INSERISCI_QUI_LA_TUA_CHIAVE" ecovisio
 
 -e GOOGLE_API_KEY: Inietta la chiave nel sistema in modo sicuro.
 
+----------------------------------------------------------------------------------------------------
 🌐 **Accesso all'App**
 
 Una volta avviato il container, l'app sarà raggiungibile dal browser all'indirizzo: 👉 http://localhost:8501
 
 _(Nota: Ignorate l'indirizzo 0.0.0.0 stampato nel terminale, è un riferimento interno al container)_
 
-📂 **Struttura del Progetto e Diagrammi**
+--------------------------------------------------------------------------------------------------📂 **Struttura del Progetto e Diagrammi**
 
 Abbiamo aggiornato la documentazione tecnica che trovate nelle cartelle del repository:
 - **Diagramma dei Casi d'Uso:** Include ora il Chatbot "Chiedi all'esperto" e la gestione API Key.
 - **Diagramma delle Classi:** Riflette la struttura multi-componente dell'analisi AI (JSON parsing).
 - **Diagramma di Sequenza:** Mostra il flusso asincrono verso l'SDK google-genai.
+
+----------------------------------------------------------------------------------------------------
+👥 Autori
+Alessio Cappiello
+Andrea Falcicchio
+Giuseppe Fuzio
+
+Progetto sviluppato per il corso di Ingegneria del Software - Politecnico di Bari (A.A. 2025/26)
+
