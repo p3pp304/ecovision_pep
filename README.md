@@ -1,67 +1,61 @@
 ♻️ **EcoVision: Smart Waste Sorting Assistant**
+EcoVision is a smart web application designed to optimize domestic waste sorting. By leveraging a hybrid approach that combines Multimodal LLMs and Geolocation, the system accurately identifies waste and provides disposal instructions based on the specific regulations of the user's municipality.
 
-EcoVision è un'applicazione web intelligente progettata per ottimizzare la raccolta differenziata domestica. Utilizzando un approccio ibrido che combina LLM Multimodali e Geolocalizzazione, il sistema identifica i rifiuti e fornisce istruzioni di smaltimento basate sulle normative del comune specifico dell'utente.
+🌐 **Live Demo**
+You can test the application live at the following address:
+👉 https://ecovision-g3.streamlit.app/
 
-🌟 **Funzionalità Principali**
-- **Riconoscimento Multimodale**: Analisi visiva avanzata tramite Google Gemini 2.5 Flash per identificare materiali e stato del rifiuto.
-- **Scomposizione Oggetti Complesso**: Capacità di distinguere e separare componenti di rifiuti multi-materiale (es. bottiglia e tappo) fornendo destinazioni diverse.
-- **Geolocalizzazione Dinamica**: Adattamento delle regole di smaltimento in tempo reale basato sulla posizione GPS dell'utente (Reverse Geocoding).
-- **Chatbot Integrato**: Assistente conversazionale con memoria di contesto per risolvere dubbi specifici post-analisi.
-- **Mappe Isole Ecologiche**: Integrazione con Google Maps per localizzare i centri di raccolta per rifiuti speciali.
+Note: The live demo is powered by a dedicated API quota. Should the application fail to respond, the daily request limit may have been reached.
 
------------------------------------------------------------------------------------------------------
+🌟 Key Features
+-Multimodal Recognition: Advanced visual analysis powered by Google Gemini 2.5 Flash to identify materials and the current state of the waste.
+-Complex Object Decomposition: Capability to distinguish and separate components of multi-material waste (e.g. a bottle and its cap), providing distinct disposal routes for each part.
+-Dynamic Geolocation: Real-time adaptation of disposal rules based on the user's GPS position via Reverse Geocoding.
+-Integrated Chatbot: A conversational assistant with context memory to resolve specific post-analysis queries.
+-Recycling Center Maps: Google Maps integration to locate local collection centers for special or hazardous waste.
 
-🐳 **Guida all'installazione con Docker**
+🐳 **Docker Installation Guide**
+Utilizing Docker containers ensures maximum environment consistency across development and production stages.
 
-Questa sezione spiega come configurare l'ambiente e avviare l'applicazione utilizzando i container Docker, garantendo la massima coerenza tra i vari ambienti di sviluppo.
+🛠 **Hardware and Software Prerequisites**
+-Virtualization: Must be enabled in the PC BIOS (Intel VT-x or AMD-V) for Docker Desktop to function.
+-Docker Desktop: Installed and currently in a "running" state.
+-Municipal Database: Ensure the comuniitaliani.json file is present in the project's root directory.
 
-🛠 **Prerequisiti Hardware e Software**
-Prima di iniziare, assicuratevi di aver configurato correttamente la vostra macchina:
-- **Virtualizzazione:** deve essere abilitata nel BIOS del PC (Intel VT-x o AMD-V). Senza questa, Docker Desktop non si avvierà.
-- **Docker Desktop:** scaricato, installato e con l'icona della "balena" in stato verde (running).
-- **Database Comuni:** verificate che il file comuniitaliani.json sia presente nella cartella principale del progetto.
+🔑 **API Key Management (Security)**
+For security purposes, API keys are never uploaded to Git. The system is configured to read the key from environment variables or Streamlit Secrets, ensuring that sensitive credentials remain unexposed within the source code.
 
-🔑 **Gestione API Key (Sicurezza)**
+🚀 **Startup Commands**
+Build the Image:
+Open the terminal in the project root and create the Docker image:
 
-Per motivi di sicurezza, non carichiamo le chiavi API su Git. Ogni sviluppatore utilizzerà la propria chiave Gemini al momento dell'avvio del container. Il codice è già predisposto per leggere la chiave dalle variabili d'ambiente.
-
-🚀 **Comandi per l'avvio**
-
-**1. Build dell'Immagine**
-
-Aprite il terminale nella root del progetto e create l'immagine Docker. Questo passaggio installa tutte le dipendenze (come google-genai, geopy, pandas) all'interno di un ambiente Linux isolato:
-
+Bash
 docker build -t ecovision-app .
+Run the Container:
+Launch the application by passing your personal key via the -e environment variable:
 
-**2. Esecuzione del Container**
+Bash
+docker run -p 8501:8501 -e GOOGLE_API_KEY="INSERT_YOUR_KEY_HERE" ecovision-app
+-p 8501:8501: Maps the container's port to your local machine's port.
 
-Avviate l'applicazione passando la vostra chiave personale tramite la variabile d'ambiente -e:
+-e GOOGLE_API_KEY: Securely injects the API key into the system.
 
-docker run -p 8501:8501 -e GOOGLE_API_KEY="INSERISCI_QUI_LA_TUA_CHIAVE" ecovision-app
+🌐 **Accessing the App**
+Once the container is running, the app can be accessed via your browser at:
+👉 http://localhost:8501
+(Note: Disregard the 0.0.0.0 address shown in the terminal, as it is an internal container reference).
 
--p 8501:8501: Collega la porta del container alla porta del tuo PC;
+📂 **Project Structure and Diagrams**
+Detailed technical documentation can be found within the repository folders:
 
--e GOOGLE_API_KEY: Inietta la chiave nel sistema in modo sicuro.
+Use Case Diagram: Includes the "Ask the Expert" Chatbot and API Key management workflows.
 
-----------------------------------------------------------------------------------------------------
-🌐 **Accesso all'App**
+Class Diagram: Reflects the multi-component architecture of the AI analysis and JSON parsing.
 
-Una volta avviato il container, l'app sarà raggiungibile dal browser all'indirizzo: 👉 http://localhost:8501
+Sequence Diagram: Illustrates the asynchronous flow toward the google-genai SDK.
 
-_(Nota: Ignorate l'indirizzo 0.0.0.0 stampato nel terminale, è un riferimento interno al container)_
+👥 **Authors**
+Alessio Cappiello, Andrea Falcicchio, Giuseppe Fuzio
 
---------------------------------------------------------------------------------------------------📂 **Struttura del Progetto e Diagrammi**
-
-Abbiamo aggiornato la documentazione tecnica che trovate nelle cartelle del repository:
-- **Diagramma dei Casi d'Uso:** Include ora il Chatbot "Chiedi all'esperto" e la gestione API Key.
-- **Diagramma delle Classi:** Riflette la struttura multi-componente dell'analisi AI (JSON parsing).
-- **Diagramma di Sequenza:** Mostra il flusso asincrono verso l'SDK google-genai.
-
-----------------------------------------------------------------------------------------------------
-👥 Autori
-Alessio Cappiello
-Andrea Falcicchio
-Giuseppe Fuzio
-
-Progetto sviluppato per il corso di Ingegneria del Software - Politecnico di Bari (A.A. 2025/26)
+Project developed for the Software Engineering course - Polytechnic of Bari (A.Y. 2025/26).
 
